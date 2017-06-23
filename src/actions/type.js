@@ -14,3 +14,4 @@ export const ERROR_ADD_CONTACT    = 'error_add_contact';
 export const LOADING_SIGNIN       = 'loading_signIn';
 export const DISMISS_SUCCESS_VIEW = 'dismiss_success_view';
 export const LOADING_ADD_CONTACT  = 'loading_add_contact';
+export const LIST_USER_CONTACT    = 'list_user_contact';

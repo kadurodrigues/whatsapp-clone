@@ -7,7 +7,8 @@ import {
     SUCCESS_ADD_CONTACT,
     ERROR_ADD_CONTACT,
     DISMISS_SUCCESS_VIEW,
-    LOADING_ADD_CONTACT
+    LOADING_ADD_CONTACT,
+    LIST_USER_CONTACT
 } from '../actions/type';
 
 export const changeAddContact = email => {
@@ -58,6 +59,27 @@ export const addContact = contact_to_add => {
             })
     }
 }
+
+export const userContactsFetch = () => {
+
+    const { currentUser } = firebase.auth();
+
+    return dispatch => {
+
+        let emailCurrentUserEncript = base64.encode(currentUser.email);
+
+        firebase.database().ref(`/user_contacts/${emailCurrentUserEncript}`)
+            .on('value', snapshot => {
+                dispatch(
+                    {
+                        type: LIST_USER_CONTACT,
+                        payload: snapshot.val()
+                    }
+                )
+            })
+    }
+
+}     
 
 const successAddContact = (dispatch) => {
     dispatch(
