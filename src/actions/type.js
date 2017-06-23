@@ -1,0 +1,16 @@
+export const CHANGE_NAME          = 'change_name';
+export const CHANGE_EMAIL         = 'change_email';
+export const CHANGE_ADD_CONTACT   = 'change_add_contact';
+export const CHANGE_PASSWORD      = 'change_password';
+export const CLEAR_STATES         = 'clear_states';
+export const SUCCESS_CREATE_USER  = 'success_create_user';
+export const SUCCESS_AUTH_SIGNUP  = 'success_auth_signUp';
+export const SUCCESS_AUTH_SIGNIN  = 'success_auth_signIn';
+export const SUCCESS_ADD_CONTACT  = 'success_add_contact';
+export const ERROR_CREATE_USER    = 'error_create_user';
+export const ERROR_AUTH_SIGNUP    = 'error_auth_signUp';
+export const ERROR_AUTH_SIGNIN    = 'error_auth_signIn';
+export const ERROR_ADD_CONTACT    = 'error_add_contact';
+export const LOADING_SIGNIN       = 'loading_signIn';
+export const DISMISS_SUCCESS_VIEW = 'dismiss_success_view';
+export const LOADING_ADD_CONTACT  = 'loading_add_contact';
