@@ -5,6 +5,7 @@ import _ from 'lodash';
 import {
     CHANGE_ADD_CONTACT,
     SUCCESS_ADD_CONTACT,
+    SUCCESS_FIND_CONTACT,
     ERROR_ADD_CONTACT,
     DISMISS_SUCCESS_VIEW,
     LOADING_ADD_CONTACT,
@@ -24,7 +25,43 @@ export const dismissSuccessView = () => {
     }
 }
 
-export const addContact = contact_to_add => {
+// export const addContact = contact_to_add => {
+
+//     return dispatch => {
+
+//         dispatch({ type: LOADING_ADD_CONTACT })
+
+//         let emailEncript = base64.encode(contact_to_add);
+
+//         firebase.database().ref(`/contacts/${emailEncript}`)
+//             .once('value')
+//             .then(snapshot => {
+//                 if(snapshot.val()){
+
+//                     const userData = _.first(_.values(snapshot.val()));
+
+//                     const { currentUser } = firebase.auth();
+
+//                     let emailCurrentEncript = base64.encode(currentUser.email);
+
+//                     firebase.database().ref(`/user_contacts/${emailCurrentEncript}`)
+//                         .push({ email: contact_to_add, name: userData.name})
+//                         .then(() => successAddContact(dispatch))
+//                         .catch(error => errorAddContact(error, dispatch))
+
+//                 } else {
+//                     dispatch(
+//                         {
+//                             type: ERROR_ADD_CONTACT,
+//                             payload: 'This email was not found!'
+//                         }
+//                     )
+//                 }
+//             })
+//     }
+// }
+
+export const searchContact = contact_to_add => {
 
     return dispatch => {
 
@@ -35,18 +72,11 @@ export const addContact = contact_to_add => {
         firebase.database().ref(`/contacts/${emailEncript}`)
             .once('value')
             .then(snapshot => {
+
                 if(snapshot.val()){
 
-                    const userData = _.first(_.values(snapshot.val()));
-
-                    const { currentUser } = firebase.auth();
-
-                    let emailCurrentEncript = base64.encode(currentUser.email);
-
-                    firebase.database().ref(`/user_contacts/${emailCurrentEncript}`)
-                        .push({ email: contact_to_add, name: userData.name})
-                        .then(() => successAddContact(dispatch))
-                        .catch(error => errorAddContact(error, dispatch))
+                    const contactFound = _.first(_.values(snapshot.val()));
+                    successFindContact(contactFound.name, dispatch);
 
                 } else {
                     dispatch(
@@ -85,6 +115,15 @@ const successAddContact = (dispatch) => {
     dispatch(
         {
             type: SUCCESS_ADD_CONTACT
+        }
+    )
+}
+
+const successFindContact = (contactFound, dispatch) => {
+    dispatch (
+        {
+            type: SUCCESS_FIND_CONTACT,
+            payload: contactFound
         }
     )
 }

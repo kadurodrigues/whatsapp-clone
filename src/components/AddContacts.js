@@ -12,7 +12,7 @@ import {
 import { connect } from 'react-redux';
 import { 
     changeAddContact,
-    addContact,
+    searchContact,
     dismissSuccessView
 } from '../actions/AppActions';
 
@@ -27,7 +27,7 @@ class AddContacts extends Component {
             )
         }
         return(
-            <Text style={styles.buttonText}>Add Contact</Text>
+            <Text style={styles.buttonText}>Search</Text>
         )
     }
 
@@ -53,6 +53,24 @@ class AddContacts extends Component {
         }
     }
 
+    resultSearch() {
+
+        if(this.props.searchResult) {
+
+            return(
+                <View>
+                    <Text style={styles.resultTitle}>User found:</Text>
+                    <View style={styles.resultSearch}>
+                        <Text style={styles.resultName}>{this.props.contactFoundName}</Text>
+                        <TouchableHighlight style={styles.buttonAddContact}>
+                            <Text style={styles.buttonAddContactText}>Add +</Text>
+                        </TouchableHighlight>
+                    </View>
+                </View>
+            )
+        }
+    }
+
     render(){
         return(
             <View style={styles.container}>
@@ -68,10 +86,11 @@ class AddContacts extends Component {
                 </View>
                 <TouchableHighlight
                     style={styles.button} 
-                    onPress={() => this.props.addContact(this.props.contact_to_add)}
+                    onPress={() => this.props.searchContact(this.props.contact_to_add)}
                 >
                     {this.renderButtonAddContact()}
                 </TouchableHighlight>
+                { this.resultSearch() }
             </View>
         )
     }
@@ -81,16 +100,19 @@ const mapStateToProps = state => (
     {
         contact_to_add: state.AppReducer.contact_to_add,
         loading: state.AppReducer.loadingAddContact,
+        searchResult: state.AppReducer.contactSearchResult,
+        contactFoundName: state.AppReducer.contactFoundName,
         successViewAddContact: state.AppReducer.successViewAddContact,
         errorViewAddContact: state.AppReducer.errorViewAddContact,
         errorTextAddContact: state.AppReducer.errorTextAddContact
     }
 )
 
-export default connect(mapStateToProps, {changeAddContact, addContact, dismissSuccessView})(AddContacts)
+export default connect(mapStateToProps, {changeAddContact, searchContact, dismissSuccessView})(AddContacts)
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         marginTop: 60,
         padding: 20,
         backgroundColor: '#eee'
@@ -115,4 +137,33 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#fff'
     },
+    buttonAddContact: {
+        padding: 8,
+        borderRadius: 4,
+        backgroundColor: '#313850'
+    },
+    buttonAddContactText: {
+        color: '#fff'
+    },
+    resultSearch: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 5,
+        padding: 10,
+        backgroundColor: '#fff'
+    },
+    resultTitle: {
+        marginTop: 20,
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#333'
+    },
+    resultName: {
+        marginTop: 5,
+        fontSize: 16,
+        color: '#333'
+    },
+    resultEmail: {
+        color: '#bbb'
+    }
 })

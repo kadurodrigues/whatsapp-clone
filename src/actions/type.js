@@ -7,6 +7,7 @@ export const SUCCESS_CREATE_USER  = 'success_create_user';
 export const SUCCESS_AUTH_SIGNUP  = 'success_auth_signUp';
 export const SUCCESS_AUTH_SIGNIN  = 'success_auth_signIn';
 export const SUCCESS_ADD_CONTACT  = 'success_add_contact';
+export const SUCCESS_FIND_CONTACT = 'success_find_contact';
 export const ERROR_CREATE_USER    = 'error_create_user';
 export const ERROR_AUTH_SIGNUP    = 'error_auth_signUp';
 export const ERROR_AUTH_SIGNIN    = 'error_auth_signIn';
