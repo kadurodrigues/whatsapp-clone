@@ -1,10 +1,12 @@
 import {
     CHANGE_ADD_CONTACT,
+    CHANGE_TEXT_MESSAGE,
     SUCCESS_ADD_CONTACT,
     SUCCESS_FIND_CONTACT,
     DISMISS_SUCCESS_VIEW,
     ERROR_ADD_CONTACT,
-    LOADING_ADD_CONTACT
+    LOADING_ADD_CONTACT,
+    SUCCESS_MESSAGE_SEND
 } from '../actions/type';
 
 const INITIAL_STATE = {
@@ -14,7 +16,8 @@ const INITIAL_STATE = {
     loadingAddContact: false,
     errorTextAddContact: '',
     contactSearchResult: false,
-    contactFoundName: ''
+    contactFoundName: '',
+    message: ''
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -37,6 +40,12 @@ export default (state = INITIAL_STATE, action) => {
         
         case DISMISS_SUCCESS_VIEW:
             return { ...state, successViewAddContact: false };
+
+        case CHANGE_TEXT_MESSAGE:
+            return { ...state, message: action.payload };
+
+        case SUCCESS_MESSAGE_SEND:
+            return { ...state, message: ''};
 
         default: return state;
     }
